@@ -20,7 +20,7 @@ function pry_add_custom_fields()
     global $product;
     global $print_yourself_options;
     $enable_per_product = $print_yourself_options['enable_per_product'];
-    $enable_global = $print_yourself_options['enable_global'];
+    $enable_global = isset($print_yourself_options['enable_global']) ? $print_yourself_options['enable_global'] : false;
 
     ob_start();
     if($enable_global){
@@ -43,7 +43,7 @@ function pry_add_custom_fields()
         ?>
             <div class="pry-custom-fields">
             <?php 
-                $customizable_fields = wc_get_product_terms( $product->id, 'pa_customizable-fields', array( 'fields' => 'names' ) );
+                $customizable_fields = wc_get_product_terms( $product->get_id(), 'pa_customizable-fields', array( 'fields' => 'names' ) );
                 // print_r($customizable_fields);
                 foreach ($customizable_fields as $key => $field) {
                     echo '<label for="pry_'.sanitize_title_with_dashes($field).'">Enter your own '.$field.':</label>';
@@ -75,7 +75,7 @@ function pry_add_item_data($cart_item_data, $product_id, $variation_id)
 {
     global $print_yourself_options;
     $enable_per_product = $print_yourself_options['enable_per_product'];
-    $enable_global = $print_yourself_options['enable_global'];
+    $enable_global = isset($print_yourself_options['enable_global']) ? $print_yourself_options['enable_global'] : false;
     if($enable_global){
         for ($i=1; $i < 4; $i++) { 
             if($print_yourself_options['global_field_'.$i]) {
@@ -111,7 +111,8 @@ function pry_add_item_meta($item_data, $cart_item)
 {
     global $print_yourself_options;
     $enable_per_product = $print_yourself_options['enable_per_product'];
-    $enable_global = $print_yourself_options['enable_global'];
+    //$enable_global = $print_yourself_options['enable_global'];
+    $enable_global = isset($print_yourself_options['enable_global']) ? $print_yourself_options['enable_global'] : false;
     if ($enable_global){
         for ($i=1; $i < 4; $i++) { 
             if($print_yourself_options['global_field_'.$i]) {
@@ -160,7 +161,8 @@ function pry_add_custom_order_line_item_meta($item, $cart_item_key, $values, $or
         }
     }
     global $print_yourself_options;
-    $enable_global = $print_yourself_options['enable_global'];
+    //$enable_global = $print_yourself_options['enable_global'];
+    $enable_global = isset($print_yourself_options['enable_global']) ? $print_yourself_options['enable_global'] : false;
     if ($enable_global){
         for ($i=1; $i < 4; $i++) { 
             if($print_yourself_options['global_field_'.$i]) {
