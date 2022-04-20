@@ -12,6 +12,6 @@ define('PRY_VERSION', '2.0.0');
 
 include 'remote-update.php';
 
-include 'admin/option-page.php';
+include 'option-page.php';
 include 'includes/pry-main.php';
 include 'includes/pry.php';

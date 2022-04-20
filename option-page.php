@@ -30,6 +30,7 @@ class PrintYourself {
 
 		<div class="wrap">
 			<h2>Print Yourself</h2>
+      <div id='pry-admin'></div>
 			<p>Woocommerce personalized products solition</p>
 			<?php settings_errors(); ?>
 
@@ -41,6 +42,7 @@ class PrintYourself {
 				?>
 			</form>
 		</div>
+    <script src="<?php echo plugin_dir_url( __FILE__ ).'/assets/js/admin.js';?>"></script>
 	<?php }
 
 	public function print_yourself_page_init() {
