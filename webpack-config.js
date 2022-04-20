@@ -1,10 +1,16 @@
 // Require path.
 const path = require( 'path' );
+const { VueLoaderPlugin } = require('vue-loader')
 
 // Configuration object.
 const config = {
 	// Create the entry points.
 	// One for frontend and one for the admin area.
+  resolve:{
+    alias: {
+      '@':  path.resolve( __dirname, 'src'),
+    }
+  },
 	entry: {
 		// frontend and admin will replace the [name] portion of the output config below.
 		admin: './src/admin/admin-index.js',
@@ -31,9 +37,16 @@ const config = {
 				exclude: /node_modules/,
 				// Use babel loader to transpile the JS files.
 				loader: 'babel-loader'
-			}
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      }
 		]
-	}
+  },
+  plugins:[
+    new VueLoaderPlugin(),
+  ]
 }
 
 // Export the config object.
