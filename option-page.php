@@ -31,6 +31,7 @@ class PrintYourself {
 		<div class="wrap">
 			<h2>Print Yourself</h2>
       <div id='pry-admin'></div>
+      <?php wp_category_checklist(); ?>
 			<p>Woocommerce personalized products solition</p>
 			<?php settings_errors(); ?>
 
