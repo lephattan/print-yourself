@@ -24,11 +24,14 @@ class PRY_Front_End extends PRY_Order_Meta
    * @since    1.0.0
    */
   private static $_instance = null;
+  public $hooked_field_tag = false;
 
   function __construct($file='', $version='1.0.0') {
     $this->$file = $file; 
     $this->_version = $version;
     add_action('init', array($this, 'register_type_forms'));
+    //add_action('init', array($this, 'render_init_function'));
+    add_action('woocommerce_before_add_to_cart_form', array($this, 'render_init_function'));// initiate render methods after loading $product,
   }
     /**
      *    Create post type forms
@@ -89,5 +92,23 @@ class PRY_Front_End extends PRY_Order_Meta
             self::$_instance = new self($parent);
         }
         return self::$_instance;
+    }
+
+    public function render_init_function()
+    {
+      if ($this->hooked_field_tag !== false) {
+            remove_action($this->hooked_field_tag[0], array($this, 'before_add_to_cart_button'), $this->hooked_field_tag[1]);
+        }
+      // TODO: add config to change hook later
+      $this->hooked_field_tag = array('woocommerce_before_add_to_cart_button', 10);
+      add_action($this->hooked_field_tag[0], array($this, 'before_add_to_cart_button'), $this->hooked_field_tag[1]);
+    }
+    public function before_add_to_cart_button()
+    {
+      global $product;
+      $product_id = $product->get_id();
+      $form = new PRY_Form();
+      $form->get_forms_by_product($product_id);
+      $form->render($product_id);
     }
 }
