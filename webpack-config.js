@@ -14,6 +14,7 @@ const config = {
 	entry: {
 		// frontend and admin will replace the [name] portion of the output config below.
 		admin: './src/admin/admin-index.js',
+		'form-editor': './src/admin/form-editor.js',
     product: './src/front/product.js',
 	},
 
