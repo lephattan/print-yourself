@@ -8,11 +8,15 @@
     </div>
     <div class="mb-1">
       <label for="label">Label: </label>
-      <input type="text" v-model="label" name="label" @change="onChange">
+      <input type="text" v-model.trim="label" name="label" @change="onChange">
     </div>
     <div>
       <label for="decription">Desciption:</label>
-      <input type="text" name="desciption" v-model="desciption" @change="onChange">
+      <input type="text" name="description" v-model.trim="description" @change="onChange">
+    </div>
+    <div>
+      <label for="required">Required:</label>
+      <input type="checkbox" name="required" v-model="required" @change="onChange">
     </div>
 
   </div>
@@ -20,6 +24,7 @@
 </template>
 
 <script>
+import {slugify} from '@/helper.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 library.add([faTrashCan])
@@ -38,20 +43,26 @@ export default {
     return {
       label: '',
       required: false,
-      desciption: ''
+      description: ''
+    }
+  },
+  computed: {
+    name(){
+      return slugify(this.label)
     }
   },
   mounted() {
     this.label = this.data.label || ''
     this.required = this.data.required || false
-    this.desciption = this.data.desciption || ''
+    this.description = this.data.description || ''
   },
   methods: {
     onChange(){
       const data = {
         label: this.label,
         required: this.required,
-        desciption: this.desciption
+        description: this.description,
+        name: this.name,
       }
       this.$emit('update', {'index': this.index, data})
     }

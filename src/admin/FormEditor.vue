@@ -59,7 +59,7 @@ export default {
     updateEditorJson(){
       this.editorJsonEl.value = JSON.stringify(this.fields)
     },
-    startDrag(evt, item){
+    startDrag(evt){
       const dataType = evt.target.getAttribute('data-type')
       evt.dataTransfer.setData('dataType', dataType)
     },
