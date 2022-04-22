@@ -62,7 +62,6 @@ class PRY_Form_Editor
         $fb_data = json_decode(wp_unslash($_POST['pry_fb-editor-json']));
         // Do the json sanitizing here
         $fb_data_json = wp_slash(json_encode($fb_data));
-        error_log(print_r($fb_data_json, true));
         update_post_meta($post_id, PRY_FORM_META_KEY, $fb_data_json);
       }
       

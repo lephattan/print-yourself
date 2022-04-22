@@ -15,11 +15,9 @@ class PRY_Form {
     if (($this->data === null || empty($this->data)) && $product_id) {
       $this->data = array();
       $post_ids = $this->get_form_ids($product_id);
-      error_log(print_r($post_ids, true));
       foreach ($post_ids as $id) {
         if(get_post_status($id) === 'publish'){
             $json_string = get_post_meta($id, PRY_FORM_META_KEY, true);
-            error_log($json_string);
             $json_encoded = json_decode($json_string);
             if ($json_encoded && is_array($json_encoded)) {
               $this->data = array_merge($this->data, $json_encoded);
@@ -57,6 +55,20 @@ class PRY_Form {
       echo '<div id="pry"></div>';
       printf('<script src="%s" defer="true"></script>', plugin_dir_url(PRY_FILE).'assets/js/product.js');
     }
+  }
+
+  public function get_field_by_name($name){
+    if(!$this->data){
+      return null;
+    }
+    
+    foreach ($this->data as $field) {
+      $_field = json_decode(json_encode($field), true);
+      if ($_field['data']['name'] === $name){
+        return $_field;
+      }
+    }
+    return null;
   }
 
 }

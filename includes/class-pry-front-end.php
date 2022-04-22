@@ -32,6 +32,8 @@ class PRY_Front_End extends PRY_Order_Meta
     add_action('init', array($this, 'register_type_forms'));
     //add_action('init', array($this, 'render_init_function'));
     add_action('woocommerce_before_add_to_cart_form', array($this, 'render_init_function'));// initiate render methods after loading $product,
+    add_filter('woocommerce_add_cart_item_data', array($this, 'add_cart_item_data'), 10, 3);
+    add_filter('woocommerce_get_item_data', array($this, 'get_item_data'), 10, 2);
   }
     /**
      *    Create post type forms
@@ -110,5 +112,36 @@ class PRY_Front_End extends PRY_Order_Meta
       $form = new PRY_Form();
       $form->get_forms_by_product($product_id);
       $form->render($product_id);
+    }
+
+    public function add_cart_item_data($cart_item_data, $product_id, $variation_id){
+      $pry_data = array();
+      $form = new PRY_Form();
+      $form->get_forms_by_product($product_id);
+      foreach ($_REQUEST as $key => $value) {
+        if(0 === strpos($key, 'pry_cf-')){
+          $name = str_replace('pry_cf-', '', $key );
+          $cart_item_data[$key] = $value;
+          $field = $form->get_field_by_name($name);
+          if($field !== null) {
+            $field['value'] = $value;
+            $pry_data[] = $field;
+          }
+        }
+      }
+      $cart_item_data['pry_data'] = $pry_data;
+      return $cart_item_data;
+    }
+
+    public function get_item_data($item_data, $cart_item){
+      if(isset($cart_item['pry_data']) && !empty($cart_item['pry_data'])){
+        foreach($cart_item['pry_data'] as $field){
+          $item_data[] = array(
+            'key' => $field['data']['label'],
+            'value' => $field['value']
+          );
+        }
+      }
+      return $item_data;
     }
 }
