@@ -17,7 +17,15 @@ class PRY_Front_End extends PRY_Order_Meta
    * @since   1.0.0
    */
   public $file;
-  function __construct($file='', $version) {
+  /**
+   * The single instance of WordPress_Plugin_Template_Settings.
+   * @var    object
+   * @access  private
+   * @since    1.0.0
+   */
+  private static $_instance = null;
+
+  function __construct($file='', $version='1.0.0') {
     $this->$file = $file; 
     $this->_version = $version;
     add_action('init', array($this, 'register_type_forms'));
@@ -73,5 +81,13 @@ class PRY_Front_End extends PRY_Order_Meta
       if (is_admin()) {
         register_taxonomy_for_object_type('product_cat', $post_type);
         }
+    }
+
+    public static function instance($parent)
+    {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new self($parent);
+        }
+        return self::$_instance;
     }
 }

@@ -12,6 +12,9 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 // Define constants
 define('PRY_VERSION', '2.0.0');
 define('PRY_POST_TYPE', 'pry_pl_form');
+define('PRY_PRODUCT_META_KEY', '_pry_product_meta');
+define('PRY_FORM_META_KEY', '_pry_fb-editor-data');
+define('PRY_FILE', __FILE__);
 
 
 require_once('includes/helpers.php');
@@ -27,7 +30,8 @@ if(!function_exists('pry_autoloader')){
 }
 if(!function_exists('PRY')){
   function PYR(){
-    return null;
+    $instance = PRY_Backend::instance(__FILE__, PRY_VERSION);
+    return $instance;
   }
 }
 spl_autoload_register('pry_autoloader');
