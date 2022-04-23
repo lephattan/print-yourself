@@ -6,17 +6,21 @@
         <font-awesome-icon class="my-auto cursor-pointer" :icon="['fas', 'trash-can']" @click="$emit('remove', index)"/>
       </div>
     </div>
-    <div class="mb-1">
-      <label for="label">Label: </label>
-      <input type="text" v-model.trim="label" name="label" @change="onChange">
+    <div class="mb-1 last:mb-0">
+      <label for="label" class="w-1/6 inline-block after:content-[':']">Label</label>
+      <input class="w-5/6" type="text" v-model.trim="label" name="label" @change="onChange">
     </div>
-    <div>
-      <label for="decription">Desciption:</label>
-      <input type="text" name="description" v-model.trim="description" @change="onChange">
+    <div class="mb-1 last:mb-0" v-show="label !== ''">
+      <label class="w-1/6 inline-block after:content-[':']" for="decription">Desciption</label>
+      <input class="w-5/6" type="text" name="description" v-model.trim="description" @change="onChange">
     </div>
-    <div>
-      <label for="required">Required:</label>
-      <input type="checkbox" name="required" v-model="required" @change="onChange">
+    <div class="mb-1 last:mb-0" v-show="label !== ''">
+      <label class="w-1/6 inline-block after:content-[':']" for="required">Required</label>
+      <input class="w-5/6" type="checkbox" name="required" v-model="required" @change="onChange">
+    </div>
+    <div class="mb-1 last:mb-0" v-show="label !== ''">
+      <label class="w-1/6 inline-block after:content-[':']" for="price">Price</label>
+      <input class="w-5/6" type="number" name="pirce" v-model.trim="price" @change="onChange">
     </div>
 
   </div>
@@ -43,7 +47,9 @@ export default {
     return {
       label: '',
       required: false,
-      description: ''
+      description: '',
+      id: '',
+      price: '',
     }
   },
   computed: {
@@ -55,6 +61,8 @@ export default {
     this.label = this.data.label || ''
     this.required = this.data.required || false
     this.description = this.data.description || ''
+    this.id = this.data.id || Date.now()
+    this.price = this.data.price || ''
   },
   methods: {
     onChange(){
@@ -63,6 +71,8 @@ export default {
         required: this.required,
         description: this.description,
         name: this.name,
+        id: this.id,
+        price: this.price,
       }
       this.$emit('update', {'index': this.index, data})
     }
