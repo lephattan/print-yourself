@@ -119,17 +119,26 @@ class PRY_Front_End extends PRY_Order_Meta
       $form = new PRY_Form();
       $form->get_forms_by_product($product_id);
       foreach ($_REQUEST as $key => $value) {
-        if(0 === strpos($key, 'pry_cf-')){
+        if(0 === strpos($key, 'pry_cf-') && $value != ''){
           $name = str_replace('pry_cf-', '', $key );
-          $cart_item_data[$key] = $value;
-          $field = $form->get_field_by_name($name);
+          $identifier = explode('-', $name, 2);
+          $field = $form->get_field_by_id($identifier[1], $identifier[0]);
           if($field !== null) {
-            $field['value'] = $value;
-            $pry_data[] = $field;
+            $data = $field[1]['data'];
+            $cart_item_data['pry_cf-'.$data['name']] = $value;
+            $pry_data[] = array(
+              'label' => $data['label'],
+              'name' => $data['name'],
+              'id' => $data['id'],
+              'price' => $data['price'] ?? 0,
+              'value' => $value,
+              'type' => $field[1]['type'] ?? 'TextInput',
+            );
           }
         }
       }
       $cart_item_data['pry_data'] = $pry_data;
+      write_log($cart_item_data);
       return $cart_item_data;
     }
 
@@ -137,8 +146,9 @@ class PRY_Front_End extends PRY_Order_Meta
       if(isset($cart_item['pry_data']) && !empty($cart_item['pry_data'])){
         foreach($cart_item['pry_data'] as $field){
           $item_data[] = array(
-            'key' => $field['data']['label'],
-            'value' => $field['value']
+            'key' => $field['label'],
+            'value' => $field['value'],
+            'type' => $field['type'] ?? 'TextInput',
           );
         }
       }

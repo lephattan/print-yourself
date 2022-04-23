@@ -1,6 +1,8 @@
 <template>
   <div class="w-full pry-main">
-    <component v-for="field, i in fields" :is="field.type" :fieldData="field.data" :key="i"></component>
+    <div v-for="(formFields, formId ) in forms" :key='formId' :class="['pry-form', 'pry-form_'+formId.toString()]">
+      <component v-for="field, i in formFields" :is="field.type" :formId="formId" :fieldData="field.data" :key="i" class="pry-field"></component>
+    </div>
 
   </div>
 </template>
@@ -13,14 +15,12 @@ export default {
   },
   data() {
     return {
-      fields : []
+      forms : {}
       
     }
   },
   mounted() {
-    this.fields = window.plData || []
-    console.log(this.fields)
-    
+    this.forms = window.plData || {}
   },
   methods: {
     

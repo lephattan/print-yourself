@@ -20,7 +20,8 @@ class PRY_Form {
             $json_string = get_post_meta($id, PRY_FORM_META_KEY, true);
             $json_encoded = json_decode($json_string);
             if ($json_encoded && is_array($json_encoded)) {
-              $this->data = array_merge($this->data, $json_encoded);
+              //$this->data = array_merge($this->data, $json_encoded);
+              $this->data[$id] = $json_encoded;
             }
         }
       }
@@ -68,6 +69,34 @@ class PRY_Form {
         return $_field;
       }
     }
+    return null;
+  }
+  public function get_field_by_id($field_id, $form_id=null){
+    if(null === $this->data){
+      return null;
+    }
+    if (null !== $form_id && !isset($this->data[$form_id])){
+      return null;
+    } 
+    if ($form_id !== null && isset($this->data[$form_id])){
+      foreach ($this->data[$form_id] as $field) {
+        $_field = json_decode(json_encode($field), true);
+        if (isset($_field['data']['id']) && $_field['data']['id'] == $field_id){
+          return array($form_id, $_field);
+        }
+      }
+    }
+    if (null === $form_id){
+      foreach ($this->data as $_form_id => $form) {
+        foreach ($form as $field) {
+          $_field = json_decode(json_encode($field), true);
+          if (isset($_field['data']['id']) && $_field['data']['id'] === $field_id){
+            return array($_form_id, $_field);
+          }
+        }
+      }
+    }
+
     return null;
   }
 
