@@ -1,5 +1,5 @@
 <template>
-  <InputField :data="data" :changeCallback="onChange" title="Text Input">
+  <InputField :index="index" :data="data" :changeCallback="onChange" title="Text Input">
     <div class="mb-1 last:mb-0" v-show="fieldMeta.label !== ''">
       <label class="w-1/6 inline-block after:content-[':']" for="price">Price</label>
       <input class="w-5/6" type="number" name="price" v-model.trim="fieldMeta.price" @change="onChange({price:fieldMeta.price})">
@@ -16,13 +16,11 @@ export default {
     InputField
   },
   props:{
-    index:{
-      type: Number
-    },
     data:{
       type: Object,
       default: {}
-    }
+    },
+    index: {}
   },
   data() {
     return {

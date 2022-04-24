@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     onChange(){
-      this.changeCallback({...this.fieldMeta, name: this.name})
+      this.changeCallback({...this.fieldMeta, name: this.name, index:this.index})
     },
   },
 
@@ -80,5 +80,14 @@ export default {
 </script>
 
 <style>
+.field-meta{
+  @apply mb-1 last:mb-0;
+}
+.field-meta > label{
+  @apply w-1/6 inline-block after:content-[':']
+}
+.field-meta > input {
+  @apply w-5/6;
+}
 
 </style>
