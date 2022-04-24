@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     onChange(meta={}){
-      console.log({meta})
       this.fieldMeta = {...this.fieldMeta, ...meta}
       const data = {
         label: this.fieldMeta.label,
