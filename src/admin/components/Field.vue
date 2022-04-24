@@ -8,8 +8,8 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLayerGroup, faFont, faUpload} from '@fortawesome/free-solid-svg-icons'
-library.add([faLayerGroup, faFont, faUpload])
+import { faLayerGroup, faFont, faUpload, faCircleDot} from '@fortawesome/free-solid-svg-icons'
+library.add([faLayerGroup, faFont, faUpload, faCircleDot])
 
 export default {
   name: 'Field',
@@ -32,6 +32,10 @@ export default {
         FileUpload: {
           text: 'File Upload',
           icon: ['fas', 'upload']
+        },
+        RadioInput: {
+          text: 'Radio',
+          icon: ['fas', 'circle-dot'],
         },
       },
     }

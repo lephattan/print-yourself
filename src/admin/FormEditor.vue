@@ -13,6 +13,7 @@
       <div class="col-span-1 gap-1">
         <Field type="FieldGroup" @dragstart="startDrag($event, {type: 'FieldGroup'})"/>
         <Field type="TextInput" @dragstart="startDrag($event, {type: 'TextInput'})"/>
+        <Field type="RadioInput" @dragstart="startDrag($event, {type: 'RaidoInput'})"/>
         <Field type="FileUpload" @dragstart="startDrag($event, {type: 'FileUpload'})"/>
       </div>
     </div>
@@ -22,10 +23,12 @@
 
 <script>
 import TextInput from '@/admin/components/TextInputField.vue'
+import RadioInput from '@/admin/components/RadioInputField.vue'
 export default {
   name: 'FormEditor',
   components:{ 
     TextInput,
+    RadioInput,
   },
   computed:{
     editorJsonEl (){

@@ -1,39 +1,20 @@
 <template>
-  <div class="w-full border group hover:border-sky-600 rounded px-2 py-1 mb-1 last:mb-0">
-    <div class="flex w-full">
-      <p class="grow font-bold text-base text-sky-400">Text Input</p>
-      <div class="actions hidden group-hover:flex">
-        <font-awesome-icon class="my-auto cursor-pointer" :icon="['fas', 'trash-can']" @click="$emit('remove', index)"/>
-      </div>
-    </div>
-    <div class="mb-1 last:mb-0">
-      <label for="label" class="w-1/6 inline-block after:content-[':']">Label</label>
-      <input class="w-5/6" type="text" v-model.trim="label" name="label" @change="onChange">
-    </div>
-    <div class="mb-1 last:mb-0" v-show="label !== ''">
-      <label class="w-1/6 inline-block after:content-[':']" for="decription">Desciption</label>
-      <input class="w-5/6" type="text" name="description" v-model.trim="description" @change="onChange">
-    </div>
-    <div class="mb-1 last:mb-0" v-show="label !== ''">
-      <label class="w-1/6 inline-block after:content-[':']" for="required">Required</label>
-      <input class="w-5/6" type="checkbox" name="required" v-model="required" @change="onChange">
-    </div>
-    <div class="mb-1 last:mb-0" v-show="label !== ''">
+  <InputField :data="data" :changeCallback="onChange" title="Text Input">
+    <div class="mb-1 last:mb-0" v-show="fieldMeta.label !== ''">
       <label class="w-1/6 inline-block after:content-[':']" for="price">Price</label>
-      <input class="w-5/6" type="number" name="pirce" v-model.trim="price" @change="onChange">
+      <input class="w-5/6" type="number" name="price" v-model.trim="fieldMeta.price" @change="onChange({price:fieldMeta.price})">
     </div>
-
-  </div>
+  </InputField>
   
 </template>
-
 <script>
+import InputField from '@/admin/components/InputField.vue'
 import {slugify} from '@/helper.js'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
-library.add([faTrashCan])
 export default {
   name: 'TextInput',
+  components:{
+    InputField
+  },
   props:{
     index:{
       type: Number
@@ -45,11 +26,10 @@ export default {
   },
   data() {
     return {
-      label: '',
-      required: false,
-      description: '',
-      id: '',
-      price: '',
+      fieldMeta:{
+        price: '',
+        label: '',
+      },
     }
   },
   computed: {
@@ -58,21 +38,21 @@ export default {
     }
   },
   mounted() {
-    this.label = this.data.label || ''
-    this.required = this.data.required || false
-    this.description = this.data.description || ''
-    this.id = this.data.id || Date.now()
-    this.price = this.data.price || ''
+   this.fieldMeta.label = this.data.label || ''
+    this.fieldMeta.price = this.data.price || ''
+    this.fieldMeta = {...this.fieldMeta,...this.data}
   },
   methods: {
-    onChange(){
+    onChange(meta={}){
+      console.log({meta})
+      this.fieldMeta = {...this.fieldMeta, ...meta}
       const data = {
-        label: this.label,
-        required: this.required,
-        description: this.description,
-        name: this.name,
-        id: this.id,
-        price: this.price,
+        label: this.fieldMeta.label,
+        required: this.fieldMeta.required,
+        description: this.fieldMeta.description,
+        id: this.fieldMeta.id,
+        name: this.fieldMeta.name,
+        price: this.fieldMeta.price,
       }
       this.$emit('update', {'index': this.index, data})
     }
