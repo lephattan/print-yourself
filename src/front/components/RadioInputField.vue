@@ -1,5 +1,5 @@
 <template>
-  <component class="pry-radio-input" :is="radioType" :fieldData="fieldData" :formId="formId">
+  <component class="pry-radio-input" :is="radioType" :fieldData="fieldData" :formId="formId" @fieldChange="onChange">
   </component>
   
 </template>
@@ -33,7 +33,11 @@ export default {
     }
   },
   mounted() {
-    console.log('radiotype', this.radioType)
+  },
+  methods: {
+    onChange(data){
+      //this.$emit('fieldChange', data)
+    }
   },
 
 }
