@@ -29,7 +29,6 @@ export default {
     }
   },
   mounted() {
-    //const rawName = this.fieldData.name || this.fieldData.label
     this.name = `pry_cf-${this.formId}-${this.fieldData.id}`  
     this.required = this.fieldData.required || false
     this.id = this.fieldData.id || null

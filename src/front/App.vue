@@ -8,10 +8,12 @@
 </template>
 <script>
 import TextInput from '@/front/components/TextInputField.vue'
+import RadioInput from '@/front/components/RadioInputField.vue'
 export default {
   name: 'ProductApp',
   components: {
     TextInput,
+    RadioInput,
   },
   data() {
     return {
