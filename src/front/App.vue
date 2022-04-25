@@ -34,12 +34,10 @@ export default {
   },
   methods: {
     onFieldChange(fieldData){
-      console.log(fieldData)
       this.values[`${fieldData.formId}-${fieldData.fieldId}`] = {
         price: fieldData.price || 0,
         value: fieldData.value
       }
-      console.log(Object.values(this.values))
     },
     
   },
