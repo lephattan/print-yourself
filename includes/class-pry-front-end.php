@@ -125,21 +125,21 @@ class PRY_Front_End extends PRY_Order_Meta
           $field = $form->get_field_by_id($identifier[1], $identifier[0]);
           if($field !== null) {
             $data = $field[1]['data'];
-            $cart_item_data['pry_cf-'.$data['name']] = $value;
             $pry_data_item = array(
               'label' => $data['label'],
               'name' => $data['name'],
               'id' => $data['id'],
-              'value' => $value,
             );
             switch ($field[1]['type']) {
               case 'TextInput':
                 $pry_data_item['type'] = $field[1]['type'];
                 $pry_data_item['price'] = $data['price'] ?? 0;
+                $pry_data_item['value'] = sanitize_text_field($value);
                 break;
 
               case 'RadioInput':
                 $pry_data_item['type'] = $field[1]['type'];
+                $pry_data_item['value'] = sanitize_text_field($value);
                 foreach ($data['options'] as $option) {
                   if ($option['value'] === $value){
                     $pry_data_item['price'] = $option['price'] ?? 0;
