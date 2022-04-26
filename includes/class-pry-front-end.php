@@ -35,6 +35,7 @@ class PRY_Front_End extends PRY_Order_Meta
     add_filter('woocommerce_add_cart_item_data', array($this, 'add_cart_item_data'), 10, 3);
     add_filter('woocommerce_get_item_data', array($this, 'get_item_data'), 10, 2);
     add_filter('woocommerce_cart_calculate_fees', array($this, 'cart_calculate_fees'), 10, 2);
+    add_action('woocommerce_checkout_create_order_line_item', array($this, 'checkout_create_order_line_item'), 10, 4);
   }
     /**
      *    Create post type forms

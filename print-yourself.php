@@ -15,6 +15,9 @@ define('PRY_POST_TYPE', 'pry_pl_form');
 define('PRY_PRODUCT_META_KEY', '_pry_product_meta');
 define('PRY_FORM_META_KEY', '_pry_fb-editor-data');
 define('PRY_FILE', __FILE__);
+define('PRY_CART_ITEM_KEY', 'pry_data');
+define('PRY_CART_ITEM_PREFIX', '_pry_cf-');
+define('PRY_ORDER_META_KEY', '_pry_order_meta_data');
 
 
 require_once('includes/helpers.php');
