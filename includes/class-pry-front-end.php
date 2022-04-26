@@ -119,8 +119,8 @@ class PRY_Front_End extends PRY_Order_Meta
       $form = new PRY_Form();
       $form->get_forms_by_product($product_id);
       foreach ($_REQUEST as $key => $value) {
-        if(0 === strpos($key, 'pry_cf-') && $value != ''){
-          $name = str_replace('pry_cf-', '', $key );
+        if(0 === strpos($key, PRY_CART_ITEM_PREFIX) && $value != ''){
+          $name = str_replace(PRY_CART_ITEM_PREFIX, '', $key );
           $identifier = explode('-', $name, 2);
           $field = $form->get_field_by_id($identifier[1], $identifier[0]);
           if($field !== null) {
