@@ -33,7 +33,7 @@ export default {
     }
   },
   mounted() {
-    this.name = `pry_cf-${this.formId}-${this.fieldData.id}`  
+    this.name = `_pry_cf-${this.formId}-${this.fieldData.id}`  
     this.required = this.fieldData.required || false
     this.id = this.fieldData.id || null
     this.price = parseFloat(this.fieldData.price || '0.0')

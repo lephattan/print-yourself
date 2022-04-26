@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     name(){
-      return `pry_cf-${this.formId}-${this.fieldData.id}`
+      return `_pry_cf-${this.formId}-${this.fieldData.id}`
     }
   },
   mounted() {
