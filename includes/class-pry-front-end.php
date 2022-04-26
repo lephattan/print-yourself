@@ -34,6 +34,7 @@ class PRY_Front_End extends PRY_Order_Meta
     add_action('woocommerce_before_add_to_cart_form', array($this, 'render_init_function'));// initiate render methods after loading $product,
     add_filter('woocommerce_add_cart_item_data', array($this, 'add_cart_item_data'), 10, 3);
     add_filter('woocommerce_get_item_data', array($this, 'get_item_data'), 10, 2);
+    add_filter('woocommerce_cart_calculate_fees', array($this, 'cart_calculate_fees'), 10, 2);
   }
     /**
      *    Create post type forms
@@ -88,16 +89,14 @@ class PRY_Front_End extends PRY_Order_Meta
         }
     }
 
-    public static function instance($parent)
-    {
+    public static function instance($parent) {
         if (is_null(self::$_instance)) {
             self::$_instance = new self($parent);
         }
         return self::$_instance;
     }
 
-    public function render_init_function()
-    {
+    public function render_init_function() {
       if ($this->hooked_field_tag !== false) {
             remove_action($this->hooked_field_tag[0], array($this, 'before_add_to_cart_button'), $this->hooked_field_tag[1]);
         }
@@ -105,8 +104,8 @@ class PRY_Front_End extends PRY_Order_Meta
       $this->hooked_field_tag = array('woocommerce_before_add_to_cart_button', 10);
       add_action($this->hooked_field_tag[0], array($this, 'before_add_to_cart_button'), $this->hooked_field_tag[1]);
     }
-    public function before_add_to_cart_button()
-    {
+  
+    public function before_add_to_cart_button() {
       global $product;
       $product_id = $product->get_id();
       $form = new PRY_Form();
@@ -156,7 +155,6 @@ class PRY_Front_End extends PRY_Order_Meta
         }
       }
       $cart_item_data['pry_data'] = $pry_data;
-      write_log($cart_item_data['pry_data']);
       return $cart_item_data;
     }
 
@@ -171,5 +169,23 @@ class PRY_Front_End extends PRY_Order_Meta
         }
       }
       return $item_data;
+    }
+
+    public function cart_calculate_fees($cart){
+      if (is_admin() && !defined('DOING_AJAX')){ return ;}
+      $cart_contents = $cart->get_cart();
+      $fees = array();
+      foreach ($cart_contents as $content) {
+        if(isset($content['pry_data']) && is_array($content['pry_data'])){
+          foreach ($content['pry_data'] as $value) {
+            if(isset($value['price']) && (float) $value['price'] > 0){
+              $fees[] = (float) $value['price'];
+            }
+          }
+        }
+      }
+      if(!empty($fees)){
+        $cart->add_fee(__('Customization fee', 'pry-text-domain'), array_sum($fees), false);
+      }
     }
 }
