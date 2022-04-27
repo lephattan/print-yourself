@@ -3,7 +3,7 @@
     <label :for="name">
       {{fieldData.label}} 
       <span class="text-red-600" v-if="required">*</span>
-      <span class="mx-1 text-red-700 font-bold" v-show="price > 0">+${{price}}</span>
+      <span class="mx-1 text-red-700 font-bold" v-show="price > 0">+<currency-symbol />{{price}}</span>
     </label>
     <input type="text" :name="name" v-model="value" :required="required" v-if="id!==null" :id="id" @change="emitData('fieldChange')">
     <p class="text-sm" v-if="fieldData.description !== ''">{{fieldData.description}}</p>
@@ -21,7 +21,7 @@ export default {
     },
     formId: {
       type: String,
-    }
+    },
   },
   data() {
     return {

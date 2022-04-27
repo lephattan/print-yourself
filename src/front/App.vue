@@ -1,9 +1,11 @@
 <template>
   <div class="w-full pry-main">
     <div v-for="(formFields, formId ) in forms" :key='formId' :class="['pry-form', 'pry-form_'+formId.toString()]">
-      <component @fieldChange="onFieldChange" v-for="field, i in formFields" :is="field.type" :formId="formId" :fieldData="field.data" :key="i" class="pry-field"></component>
+      <component class="pry-field" v-for="field, i in formFields" @fieldChange="onFieldChange" 
+      :is="field.type" :formId="formId" :fieldData="field.data" :key="i">
+      </component>
     </div>
-    <p v-show="totalFee > 0" class="font-bold text-lg text-slate-700">Customization fee: <span class="text-red-500 text-2xl">${{totalFee}}</span></p>
+    <p v-show="totalFee > 0" class="font-bold text-lg text-slate-700">Customization fee: <span class="text-red-500 text-2xl"><currency-symbol />{{totalFee}}</span></p>
 
   </div>
 </template>
@@ -19,7 +21,7 @@ export default {
   data() {
     return {
       forms : {},
-      values: {}
+      values: {},
     }
   },
   computed: {
@@ -30,7 +32,7 @@ export default {
     }
   },
   mounted() {
-    this.forms = window.plData || {}
+    this.forms = window.PryData || {}
   },
   methods: {
     onFieldChange(fieldData){

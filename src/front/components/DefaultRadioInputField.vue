@@ -3,7 +3,7 @@
     <label class="" :for="name">{{fieldData.label}}:
       <span class="text-red-600" v-if="fieldData.required">*</span>
       <span class="mx-1 text-slate-600"> {{value}}</span>
-      <span class=" mx-1 text-red-700 font-bold" v-show="price !== 0">+${{price}}</span>
+      <span class=" mx-1 text-red-700 font-bold" v-show="price !== 0">+<currency-symbol />{{price}}</span>
     </label>
     <div class="flex gap-2 flex-wrap">
       <label class="block text-center border rounded border-slate-300 px-1" :for="name+'-'+i.toString()" v-for="(option, i) in fieldData.options" :key="i">
@@ -27,7 +27,7 @@ export default {
     },
     formId: {
       type: String,
-    }
+    },
   },
   data() {
     return {

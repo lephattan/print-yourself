@@ -1,5 +1,6 @@
 <template>
-  <component class="pry-radio-input" :is="radioType" :fieldData="fieldData" :formId="formId" @fieldChange="onChange">
+  <component class="pry-radio-input" @fieldChange="onChange"
+  :is="radioType" :fieldData="fieldData" :formId="formId" >
   </component>
   
 </template>
@@ -30,7 +31,7 @@ export default {
     },
     formId: {
       type: String,
-    }
+    },
   },
   mounted() {
   },
