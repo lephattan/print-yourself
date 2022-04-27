@@ -4,7 +4,7 @@
       <div class="grow">
         <p class="inline-block font-bold text-base text-sky-400 mr-2">{{title}}</p> 
         <span class="text-gray-500 select-all mr-2">{{fieldMeta.id}}</span>
-        <span class="text-gray-500 select-all mr-2">pry-cf_{{name}}</span>
+        <span class="text-gray-500 select-all mr-2">_pry-cf_{{name}}</span>
       </div>
       <div class="actions hidden group-hover:flex">
         <font-awesome-icon class="my-auto cursor-pointer" :icon="['fas', 'trash-can']" @click="$emit('remove', index)"/>

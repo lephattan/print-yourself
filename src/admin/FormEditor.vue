@@ -5,7 +5,7 @@
   <div class="editor-wraper">
     <div class="grid w-full grid-cols-4 gap-1">
       <div class="p-1 col-span-3 border w-full border-sky-500 border-dotted" @drop="onDrop($event)" @dragover.prevent @dragenter.prevent>
-        <component v-for="field, i in fields" :is="field.type" :index="i" @update="fieldUpdate" :data="field.data" @remove="fieldRemove"></component>
+        <component v-for="field, i in fields" :key="i" :is="field.type" :index="i" @update="fieldUpdate" :data="field.data" @remove="fieldRemove"></component>
         <div class="flex w-full h-full items-center" v-show="fields.length === 0">
           <p class="w-full text-center my-auto text-base text-gray-400/70">Drag a field from the right to this area</p>
         </div>
