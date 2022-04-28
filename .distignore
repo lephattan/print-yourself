@@ -1,0 +1,14 @@
+.*
+.*/ 
+*.zip
+build/
+tests/
+bin/
+node_modules/
+package.json
+src/
+package-lock.json
+jsconfig.json
+postcss.config.js
+tailwind.config.js
+webpack-config.js
