@@ -12,7 +12,7 @@ class PRY_Order_Meta {
       $meta_data = array();
       foreach ($values[PRY_CART_ITEM_KEY] as $value) {
         $item->add_meta_data( PRY_CART_ITEM_PREFIX.$value['name'], $value['value']);
-        $meta_data[] = array_intersect_key($value, array_flip(array('name', 'label', 'value', 'type')));
+        $meta_data[] = array_intersect_key($value, array_flip(array('name', 'label', 'value', 'type', 'price')));
       }
       $item->add_meta_data(PRY_ORDER_META_KEY, $meta_data);
     }
@@ -23,7 +23,8 @@ class PRY_Order_Meta {
       if ($pry_order_meta){
         $strings = array();
         foreach ($pry_order_meta as $value) {
-          $strings[] = $args['label_before'].wp_kses_post($value['label']).$args['label_after'].$value['value'];
+          $price = (isset($value['price']) && floatval($value['price']) > 0) ? sprintf('(+%s%01.2f)',get_woocommerce_currency_symbol(),$value['price']): '';
+          $strings[] = $args['label_before'].wp_kses_post($value['label']).$args['label_after'].$value['value'].$price;
         }
         if($strings){
           $html .= $args['before'] . implode( $args['separator'], $strings ) . $args['after'];
