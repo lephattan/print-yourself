@@ -11,10 +11,10 @@
         </div>
       </div>
       <div class="col-span-1 gap-1">
-        <Field type="FieldGroup" @dragstart="startDrag($event, {type: 'FieldGroup'})"/>
+        <Field v-if="false" type="FieldGroup" @dragstart="startDrag($event, {type: 'FieldGroup'})"/>
         <Field type="TextInput" @dragstart="startDrag($event, {type: 'TextInput'})"/>
         <Field type="RadioInput" @dragstart="startDrag($event, {type: 'RaidoInput'})"/>
-        <Field type="FileUpload" @dragstart="startDrag($event, {type: 'FileUpload'})"/>
+        <Field v-if="false" type="FileUpload" @dragstart="startDrag($event, {type: 'FileUpload'})"/>
       </div>
     </div>
   </div>
