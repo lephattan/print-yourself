@@ -12,3 +12,4 @@ jsconfig.json
 postcss.config.js
 tailwind.config.js
 webpack-config.js
+readme.md
