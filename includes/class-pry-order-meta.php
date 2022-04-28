@@ -17,4 +17,18 @@ class PRY_Order_Meta {
       $item->add_meta_data(PRY_ORDER_META_KEY, $meta_data);
     }
 
+
+    public function display_item_meta($html, $item, $args) {
+      $pry_order_meta = $item->get_meta(PRY_ORDER_META_KEY, true);
+      if ($pry_order_meta){
+        $strings = array();
+        foreach ($pry_order_meta as $value) {
+          $strings[] = $args['label_before'].wp_kses_post($value['label']).$args['label_after'].$value['value'];
+        }
+        if($strings){
+          $html .= $args['before'] . implode( $args['separator'], $strings ) . $args['after'];
+        }
+      }
+      return $html;
+    }
 }

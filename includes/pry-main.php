@@ -4,10 +4,10 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 $print_yourself_options = get_option( 'pry_setting' );
 if ($print_yourself_options['enable_plugin']) {
-  add_action('woocommerce_before_add_to_cart_button','pry_add_custom_fields');
-  add_filter('woocommerce_add_cart_item_data','pry_add_item_data',10,3);
-  add_filter('woocommerce_get_item_data','pry_add_item_meta',10,2);
-  add_action( 'woocommerce_checkout_create_order_line_item', 'pry_add_custom_order_line_item_meta',10,4 );
+  //add_action('woocommerce_before_add_to_cart_button','pry_add_custom_fields');
+  //add_filter('woocommerce_add_cart_item_data','pry_add_item_data',10,3);
+  //add_filter('woocommerce_get_item_data','pry_add_item_meta',10,2);
+  //add_action( 'woocommerce_checkout_create_order_line_item', 'pry_add_custom_order_line_item_meta',10,4 );
 }
 
 /**
