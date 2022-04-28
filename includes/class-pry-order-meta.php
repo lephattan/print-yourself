@@ -31,4 +31,18 @@ class PRY_Order_Meta {
       }
       return $html;
     }
+    public function display_meta_value($display_value, $meta = null, $item = null){
+      //write_log($display_value);
+      return $display_value;
+    }
+
+    public function order_item_line_item_html($item_id, $item, $product){
+      //write_log(array('item'=> $item));
+    }
+
+    public function order_item_get_formatted_meta_data($formatted_meta, $order_item){
+      //write_log($formatted_meta);
+      return $formatted_meta;
+    }
+
 }

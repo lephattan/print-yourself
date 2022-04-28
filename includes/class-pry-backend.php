@@ -75,6 +75,9 @@ class PRY_Backend extends PRY_Order_Meta
     add_action('manage_' . PRY_POST_TYPE . '_posts_custom_column', array($this, 'manage_form_column'), 10, 2);
 
     add_filter("manage_taxonomies_for_" . PRY_POST_TYPE . "_columns", array($this, 'manage_taxonomies_for_list'), 10, 2);
+    add_action('woocommerce_before_order_itemmeta', array($this, 'order_item_line_item_html'), 10, 3);
+    add_filter('woocommerce_order_item_display_meta_value', array($this, 'display_meta_value'), 10, 3);
+    add_filter('woocommerce_order_item_get_formatted_meta_data', array($this, 'order_item_get_formatted_meta_data'), 10, 2);
 
     PRY_Form_Editor::instance();
     }

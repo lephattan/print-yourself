@@ -55,7 +55,6 @@ class PRY_Form {
       $pry_setting = array(
         'currency_symbol' => get_woocommerce_currency_symbol()
       );
-      write_log($pry_setting);
       printf('<script>window.PrySetting=%s; window.PryData = %s</script>',json_encode($pry_setting), json_encode($this->data));
       echo '<div id="pry"></div>';
       printf('<script src="%s" defer="true"></script>', plugin_dir_url(PRY_FILE).'assets/js/product.js');
