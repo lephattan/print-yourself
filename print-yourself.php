@@ -42,8 +42,3 @@ if(is_admin()){
   PYR();
 }
 new PRY_Front_End(__FILE__, PRY_VERSION);
-
-//require 'remote-update.php';
-//require 'option-page.php';
-//require 'includes/pry-main.php';
-//require 'includes/pry.php';
