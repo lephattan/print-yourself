@@ -2,6 +2,8 @@
 
 ### V2.0.1 
 
+1. Fixes
+	- Style confilcts due to tailwindcss preflight
 
 ### v2.0.0
 
