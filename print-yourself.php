@@ -3,14 +3,14 @@
  * Plugin Name: Print yourself
  * Plugin URI: #
  * Description: Woocommerce personalized products solition
- * Version: 2.0.1
+ * Version: 2.1.0
  * Author: Tan Le
  * Author URI: #
  */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 // Define constants
-define('PRY_VERSION', '2.0.1');
+define('PRY_VERSION', '2.1.0');
 define('PRY_POST_TYPE', 'pry_pl_form');
 define('PRY_PRODUCT_META_KEY', '_pry_product_meta');
 define('PRY_FORM_META_KEY', '_pry_fb-editor-data');
