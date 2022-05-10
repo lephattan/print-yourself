@@ -2,7 +2,7 @@
   <div class="w-full border group hover:border-sky-600 rounded px-2 py-1 mb-1 last:mb-0">
     <div class="flex w-full mb-2">
       <div class="grow">
-        <p class="inline-block font-bold text-base text-sky-400 mr-2">{{title}}</p> 
+        <p class="inline-block font-bold text-base text-sky-400 mr-2 my-0">{{title}}</p> 
         <span class="text-gray-500 select-all mr-2">{{fieldMeta.id}}</span>
         <span class="text-gray-500 select-all mr-2">_pry-cf_{{name}}</span>
       </div>

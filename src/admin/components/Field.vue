@@ -1,7 +1,7 @@
 <template>
-  <div class="border border-sky-300 rounded px-2 py-1 flex mb-1 last:mb-0" draggable="true" :data-type="type" >
+  <div class="border border-solid border-sky-300 rounded px-2 py-1 flex mb-1 last:mb-0" draggable="true" :data-type="type" >
     <font-awesome-icon class="my-auto" :icon="icon" size='lg'/>
-    <p class="text-center grow text-lg">{{text}}</p>
+    <p class="text-center grow text-lg my-0">{{text}}</p>
   </div>
   
 </template>

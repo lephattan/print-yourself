@@ -1,6 +1,11 @@
 # Changelog
 
-### V2.0.1 
+### v2.1.0
+
+1. Fixes
+	- Styles conflicts in admin areas
+
+### v2.0.1 
 
 1. Fixes
 	- Style confilcts due to tailwindcss preflight

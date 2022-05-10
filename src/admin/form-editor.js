@@ -1,5 +1,6 @@
 import {createApp} from 'vue'
 import FormEditor from '@/admin/FormEditor.vue'
+import '@/preflight.css'
 import '@/admin/editor.css'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
