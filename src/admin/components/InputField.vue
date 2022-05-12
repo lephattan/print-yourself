@@ -3,7 +3,7 @@
     <div class="flex w-full mb-2">
       <div class="grow">
         <p class="inline-block font-bold text-base text-sky-400 mr-2 my-0">{{title}}</p> 
-        <span class="text-gray-500 select-all mr-2">{{fieldMeta.id}}</span>
+        <span class="text-gray-500 select-all mr-2">{{field.data.id}}</span>
         <span class="text-gray-500 select-all mr-2">_pry-cf_{{name}}</span>
       </div>
       <div class="actions hidden group-hover:flex">
@@ -12,15 +12,15 @@
     </div>
     <div class="field-meta">
       <label for="label" class="">Label</label>
-      <input class="" type="text" v-model.trim="fieldMeta.label" name="label" @change="onChange">
+      <input class="" type="text" v-model.trim="field.data.label" name="label" @change="onChange">
     </div>
-    <div class="field-meta" v-show="fieldMeta.label !== ''">
+    <div class="field-meta" v-show="field.label !== ''">
       <label class="" for="decription">Desciption</label>
-      <input class="" type="text" name="description" v-model.trim="fieldMeta.description" @change="onChange">
+      <input class="" type="text" name="description" v-model.trim="field.data.description" @change="onChange">
     </div>
-    <div class="mb-1 last:mb-0" v-show="fieldMeta.label !== ''">
+    <div class="mb-1 last:mb-0" v-show="field.label !== ''">
       <label class="w-1/6 inline-block after:content-[':']" for="required">Required</label>
-      <input class="" type="checkbox" name="required" v-model="fieldMeta.required" @change="onChange">
+      <input class="" type="checkbox" name="required" v-model="field.data.required" @change="onChange">
     </div>
     <slot></slot>
   </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import {useEditorFields} from '@/admin/stores/editor'
+import { mapState } from 'pinia'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import {slugify} from '@/helper.js'
@@ -38,41 +40,32 @@ export default {
     index:{
       type: Number
     },
-    data:{
-      type: Object,
-      default: {}
-    },
     title:{
       type: String,
       default: '',
     },
-    changeCallback:{
-    },
+    field: {},
   },
   data() {
     return {
-      fieldMeta:{
-        label: '',
-        required: false,
-        description: '',
-        id: '',
-      },
     }
   },
   computed: {
     name(){
-      return slugify(this.fieldMeta.label)
-    }
+      if (this.field.data.label !== undefined ){
+        return slugify(this.field.data.label)
+      } else{
+        return ''
+      }
+    },
+    ...mapState(useEditorFields, {editorFields: 'editorFields'}),
   },
   mounted() {
-    this.fieldMeta.label = this.data.label || ''
-    this.fieldMeta.required = this.data.required || false
-    this.fieldMeta.description = this.data.description || ''
-    this.fieldMeta.id = this.data.id || Date.now()
+    console.log('test field', this.field)
   },
   methods: {
     onChange(){
-      this.changeCallback({...this.fieldMeta, name: this.name, index:this.index})
+      useEditorFields().onUpdate()
     },
   },
 

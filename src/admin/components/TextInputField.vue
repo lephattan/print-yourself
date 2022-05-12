@@ -1,13 +1,14 @@
 <template>
-  <InputField :index="index" :data="data" :changeCallback="onChange" title="Text Input">
-    <div class="mb-1 last:mb-0" v-show="fieldMeta.label !== ''">
+  <InputField :index="index" :changeCallback="onChange" title="Text Input" :field="field">
+    <div class="mb-1 last:mb-0" v-show="field.data.label !== ''">
       <label class="w-1/6 inline-block after:content-[':']" for="price">Price</label>
-      <input class="w-5/6" type="number" name="price" v-model.trim="fieldMeta.price" @change="onChange({price:fieldMeta.price})">
+      <input class="w-5/6" type="number" name="price" v-model.trim="field.data.price" @change="onChange">
     </div>
   </InputField>
   
 </template>
 <script>
+import {useEditorFields} from '@/admin/stores/editor'
 import InputField from '@/admin/components/InputField.vue'
 import {slugify} from '@/helper.js'
 export default {
@@ -16,11 +17,8 @@ export default {
     InputField
   },
   props:{
-    data:{
-      type: Object,
-      default: {}
-    },
-    index: {}
+    index: {},
+    field: {},
   },
   data() {
     return {
@@ -36,23 +34,11 @@ export default {
     }
   },
   mounted() {
-   this.fieldMeta.label = this.data.label || ''
-    this.fieldMeta.price = this.data.price || ''
-    this.fieldMeta = {...this.fieldMeta,...this.data}
   },
   methods: {
-    onChange(meta={}){
-      this.fieldMeta = {...this.fieldMeta, ...meta}
-      const data = {
-        label: this.fieldMeta.label,
-        required: this.fieldMeta.required,
-        description: this.fieldMeta.description,
-        id: this.fieldMeta.id,
-        name: this.fieldMeta.name,
-        price: this.fieldMeta.price,
-      }
-      this.$emit('update', {'index': this.index, data})
-    }
+    onChange(){
+      useEditorFields().onUpdate()
+    },
   },
 
 }

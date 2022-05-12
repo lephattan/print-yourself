@@ -5,7 +5,10 @@
   <div class="editor-wraper">
     <div class="grid w-full grid-cols-4 gap-1">
       <div class="p-1 col-span-3 box-border border w-full border-sky-500 border-dotted" @drop="onDrop($event)" @dragover.prevent @dragenter.prevent>
-        <component v-for="field, i in fields" :key="i" :is="field.type" :index="i" @update="fieldUpdate" :data="field.data" @remove="fieldRemove"></component>
+        <component v-for="field, i in editorFields" 
+          :key="i" :is="field.type" :index="i" :field="field"
+          @remove="fieldRemove"
+        ></component>
         <div class="flex w-full h-full items-center" v-show="fields.length === 0">
           <p class="w-full text-center my-auto text-base text-gray-400/70">Drag a field from the right to this area</p>
         </div>
@@ -22,6 +25,8 @@
 </template>
 
 <script>
+import {useEditorFields} from '@/admin/stores/editor'
+import { mapState } from 'pinia'
 import TextInput from '@/admin/components/TextInputField.vue'
 import RadioInput from '@/admin/components/RadioInputField.vue'
 export default {
@@ -34,6 +39,7 @@ export default {
     editorJsonEl (){
       return document.getElementById('pry_fb-editor-json')
     },
+    ...mapState(useEditorFields, {editorFields: 'editorFields'}),
   },
   data() {
     return {
@@ -43,11 +49,18 @@ export default {
   mounted() {
     const editorJson = this.getEditorJson();
     if (null !== editorJson ){
-      this.fields = editorJson
+      useEditorFields().loadFromJson(editorJson)
     } else {
-      this.fields = []
+      useEditorFields().loadFromJson([])
     }
-    console.log(this.fields)
+
+    // Update editor json after a action is called
+    useEditorFields().$onAction(({ name, store, args, after, onError }) => {
+      after(() =>{
+        this.updateEditorJson()
+      })
+    }, true
+    )
   },
   methods: {
     getEditorJson(){
@@ -60,7 +73,7 @@ export default {
       }
     },
     updateEditorJson(){
-      this.editorJsonEl.value = JSON.stringify(this.fields)
+      this.editorJsonEl.value = JSON.stringify(this.editorFields)
     },
     startDrag(evt){
       const dataType = evt.target.getAttribute('data-type')
@@ -68,20 +81,21 @@ export default {
     },
     onDrop(evt){
       const dataType = evt.dataTransfer.getData('dataType')
-      this.fields.push({type: dataType, data: {}})
-      console.log(this.fields)
+      const fieldData = {
+        type: dataType, 
+        data: {
+          label: '',
+          required: false,
+          description: '',
+          id: Date.now(),
+        },
+      }
+      useEditorFields().addField(fieldData)
       this.updateEditorJson();
     },
-    fieldUpdate(data){
-      console.log(data)
-      this.fields[data.index].data = data.data
-      this.updateEditorJson()
-    },
     fieldRemove(index){
-      this.fields.splice(index, 1)
-      this.updateEditorJson()
-    }
-    
+      useEditorFields().removeField(index)
+    },
   },
 
 }
