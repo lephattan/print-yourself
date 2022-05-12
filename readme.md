@@ -27,9 +27,9 @@ Coming soon...
 
 ## Todo
 
-- Feature to re-arrange fields in FormEditor
 - Add option to calculate customization fee as product price
 - Radio Input for with color
 - Radio Input with image
 - File Input 
+- Field validation in admin Form Editor
 - **V3.0.0: Live mockup with user input image**

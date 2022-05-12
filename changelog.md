@@ -2,8 +2,12 @@
 
 ### v2.1.0
 
+1. Features
+	- Add field rearranging buttons to admin Form Editor
 1. Fixes
 	- Styles conflicts in admin areas
+1. Dev 
+	- Add [pinia](https://pinia.vuejs.org) to manage admin Form Editor data
 
 ### v2.0.1 
 
