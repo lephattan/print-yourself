@@ -2,12 +2,14 @@
   <div class="w-full border group hover:border-sky-600 rounded px-2 py-1 mb-1 last:mb-0">
     <div class="flex w-full mb-2">
       <div class="grow">
-        <p class="inline-block font-bold text-base text-sky-400 mr-2 my-0">{{title}}</p> 
+        <p class="inline-block my-1 font-bold text-base text-sky-400 mr-2">{{title}}</p> 
         <span class="text-gray-500 select-all mr-2">{{field.data.id}}</span>
         <span class="text-gray-500 select-all mr-2">_pry-cf_{{name}}</span>
       </div>
       <div class="actions hidden group-hover:flex">
-        <font-awesome-icon class="my-auto cursor-pointer" :icon="['fas', 'trash-can']" @click="$emit('remove', index)"/>
+        <font-awesome-icon class="p-2 cursor-pointer hover:ring-1 ring-inset hover:ring-slate-400 hover:rounded" :icon="['fas', 'angle-up']" @click="moveField(index, index-1)"/>
+        <font-awesome-icon class="p-2 cursor-pointer hover:ring-1 ring-inset hover:ring-slate-400 hover:rounded" :icon="['fas', 'angle-down']" @click="moveField(index, index+1)"/>
+        <font-awesome-icon class="pl-2 my-auto cursor-pointer" :icon="['fas', 'trash-can']" @click="$emit('remove', index)"/>
       </div>
     </div>
     <div class="field-meta">
@@ -31,9 +33,9 @@
 import {useEditorFields} from '@/admin/stores/editor'
 import { mapState } from 'pinia'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
+import {faTrashCan, faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons'
+library.add([faTrashCan, faAngleDown, faAngleUp])
 import {slugify} from '@/helper.js'
-library.add([faTrashCan])
 export default {
   name: 'InputField',
   props:{
@@ -47,8 +49,7 @@ export default {
     field: {},
   },
   data() {
-    return {
-    }
+    return {}
   },
   computed: {
     name(){
@@ -60,13 +61,13 @@ export default {
     },
     ...mapState(useEditorFields, {editorFields: 'editorFields'}),
   },
-  mounted() {
-    console.log('test field', this.field)
-  },
   methods: {
     onChange(){
       useEditorFields().onUpdate()
     },
+    moveField(from, to){
+      useEditorFields().moveField(from, to)
+    }
   },
 
 }
