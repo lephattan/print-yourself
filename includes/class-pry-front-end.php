@@ -88,6 +88,7 @@ class PRY_Front_End extends PRY_Order_Meta
 
       if (is_admin()) {
         register_taxonomy_for_object_type('product_cat', $post_type);
+        register_taxonomy_for_object_type('product_tag', $post_type);
         }
     }
 
