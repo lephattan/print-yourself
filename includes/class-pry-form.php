@@ -43,8 +43,24 @@ class PRY_Form {
           'posts_per_page' => -1
       )
     );
+    $post_ids_by_tag = get_posts(
+      array(
+          'tax_query' => array(
+              array(
+                  'taxonomy' => 'product_tag',
+                  'field' => 'ids',
+                  'include_children' => false,
+                  'terms' => wp_get_object_terms($product_id, 'product_tag', array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'ids'))
+              )
+          ),
+          'fields' => 'ids',
+          'post_type' => PRY_POST_TYPE,
+          'posts_per_page' => -1
+      )
+    );
+    $post_ids = array_unique(array_merge($post_ids, $post_ids_by_tag));
+    
     return $post_ids;
-
   }
   public function render($product_id = null) {
     if (!$this->product) {
