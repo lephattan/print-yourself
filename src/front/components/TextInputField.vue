@@ -3,7 +3,7 @@
     <label :for="name">
       {{fieldData.label}}
       <span class="text-red-600" v-if="required">*</span>
-      <span class="font-normal text-xs remaining">({{remainingChar}})</span>
+      <span class="font-normal text-xs remaining" v-if="maxLength > 0">({{remainingChar}})</span>
       <span class="mx-1 text-red-700 font-bold" v-show="price > 0">+<currency-symbol />{{price}}</span>
     </label>
     <input type="text" :name="name" v-model="value" :maxlength="maxLength" :required="required" v-if="id!==null" :id="id" @change="emitData('fieldChange')">
@@ -31,7 +31,7 @@ export default {
       required: false,
       id: null,
       price: 0.0,
-      maxLength: 32,
+      maxLength: -1,
     }
   },
   mounted() {

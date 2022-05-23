@@ -4,6 +4,11 @@
       <label class="w-1/6 inline-block after:content-[':']" for="price">Price</label>
       <input class="w-5/6" type="number" name="price" v-model.trim="field.data.price" @change="onChange">
     </div>
+    <div class="mb-1 last:mb-0" v-show="field.data.label !== ''">
+      <label class="w-1/6 inline-block after:content-[':']" for="price">Max length</label>
+      <input class="w-5/6" type="number" name="maxLength" v-model.trim="field.data.maxLength" @change="onChange">
+      <span class="text-slate-500">Maximum length for user to input, use -1 to set no limit</span>
+    </div>
   </InputField>
   
 </template>

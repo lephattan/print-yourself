@@ -134,9 +134,14 @@ class PRY_Front_End extends PRY_Order_Meta
             );
             switch ($field[1]['type']) {
               case 'TextInput':
+                $max_length = $field[1]['data']['maxLength'] ?? -1;
                 $pry_data_item['type'] = $field[1]['type'];
                 $pry_data_item['price'] = $data['price'] ?? 0;
-                $pry_data_item['value'] = sanitize_text_field($value);
+                if($max_length > 0){
+                  $pry_data_item['value'] = sanitize_text_field(substr($value, 0, $max_length));
+                } else {
+                  $pry_data_item['value'] = sanitize_text_field($value);
+                }
                 break;
 
               case 'RadioInput':
