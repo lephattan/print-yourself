@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="pry-text-input">
     <label :for="name">
-      {{fieldData.label}} 
+      {{fieldData.label}}
       <span class="text-red-600" v-if="required">*</span>
+      <span class="font-normal text-xs remaining">({{remainingChar}})</span>
       <span class="mx-1 text-red-700 font-bold" v-show="price > 0">+<currency-symbol />{{price}}</span>
     </label>
-    <input type="text" :name="name" v-model="value" :required="required" v-if="id!==null" :id="id" @change="emitData('fieldChange')">
+    <input type="text" :name="name" v-model="value" :maxlength="maxLength" :required="required" v-if="id!==null" :id="id" @change="emitData('fieldChange')">
     <p class="text-sm" v-if="fieldData.description !== ''">{{fieldData.description}}</p>
   </div>
   
@@ -30,6 +31,7 @@ export default {
       required: false,
       id: null,
       price: 0.0,
+      maxLength: 32,
     }
   },
   mounted() {
@@ -37,7 +39,13 @@ export default {
     this.required = this.fieldData.required || false
     this.id = this.fieldData.id || null
     this.price = parseFloat(this.fieldData.price || '0.0')
+    this.maxLength = this.fieldData.maxLength || this.maxLength
     this.emitData()
+  },
+  computed: {
+    remainingChar(){
+      return this.maxLength - this.value.length
+    }
   },
   methods: {
     emitData(_event='fieldChange'){
