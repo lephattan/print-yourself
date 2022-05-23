@@ -129,7 +129,7 @@ class PRY_Front_End extends PRY_Order_Meta
             $data = $field[1]['data'];
             $pry_data_item = array(
               'label' => $data['label'],
-              //'name' => $data['name'],
+              'name' => $data['name'] ?? sanitize_title($data['label']),
               'id' => $data['id'],
             );
             switch ($field[1]['type']) {

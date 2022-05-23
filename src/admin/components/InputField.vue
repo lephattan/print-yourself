@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     onChange(){
+      this.field.data.name = this.name
       useEditorFields().onUpdate()
     },
     moveField(from, to){
