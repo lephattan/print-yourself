@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Print yourself
  * Plugin URI: #
- * Description: Woocommerce personalized products solition
+ * Description: Woocommerce personalized products solution
  * Version: 2.2.0
  * Author: Tan Le
  * Author URI: #
