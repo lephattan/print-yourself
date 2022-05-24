@@ -14,15 +14,24 @@
           <label class="block" for="select">Select</label>
         </div>
         <div class="text-center">
-          <input class="block" type="radio" id="color" value="color"
+          <input class="block" type="radio" id="select" value="label"
           v-model="field.data.type" @change="onChange">
-          <label class="block" for="color">Color</label>
+          <label class="block" for="select">Label</label>
         </div>
-        <div class="text-center">
-          <input class="block" type="radio" id="image" value="image"
-          v-model="field.data.type" @change="onChange">
-          <label class="block" for="image">Image</label>
-        </div>
+        <!--
+           -<div class="text-center">
+           -  <input class="block" type="radio" id="color" value="color"
+           -  v-model="field.data.type" @change="onChange">
+           -  <label class="block" for="color">Color</label>
+           -</div>
+           -->
+        <!--
+           -<div class="text-center">
+           -  <input class="block" type="radio" id="image" value="image"
+           -  v-model="field.data.type" @change="onChange">
+           -  <label class="block" for="image">Image</label>
+           -</div>
+           -->
       </div>
     </div>
     <div class="field-meta" v-show="field.data.label !== ''">

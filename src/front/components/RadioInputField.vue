@@ -8,17 +8,21 @@
 <script>
 import DefaultRadioInput from '@/front/components/DefaultRadioInputField.vue'
 import SelectInput from '@/front/components/SelectInputField.vue'
+import LabelInput from '@/front/components/LabelInputField.vue'
 export default {
   name: 'RadioInput',
   components:{
     DefaultRadioInput,
     SelectInput,
+    LabelInput,
   },
   computed: {
     radioType(){
       switch (this.fieldData.type) {
         case 'select':
           return 'SelectInput'
+        case 'label':
+          return 'LabelInput'
         default:
           return 'DefaultRadioInput'
       }

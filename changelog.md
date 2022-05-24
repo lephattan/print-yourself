@@ -6,6 +6,7 @@
 	- Personalize Forms now can be loaded via "product_tag"
 	- TextInputField now has max length, set to -1 so use no limit
 	- Add Select type for Radio input
+	- Add Label type for Radio input
 1. Fixes
 	- Fix meta 'name' index bug
 

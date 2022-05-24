@@ -1,17 +1,26 @@
 <template>
-  <div class="select-radio">
+  <div class="label-radio">
     <label class="" :for="name">{{fieldData.label}}:
       <span class="text-red-600" v-if="fieldData.required">*</span>
       <span class="mx-1 text-slate-600"> {{value}}</span>
       <span class=" mx-1 text-red-700 font-bold" v-show="price > 0">+<currency-symbol />{{price}}</span>
     </label>
-    <div class="flex gap-2 flex-wrap">
+    <div class="flex gap-2 flex-wrap" v-show="false">
       <select v-model="value" @change="onChange" :name="name" :required="fieldData.required" :id="fieldData.id">
         <option v-if="fieldData.required !== true" value=""></option>
         <option v-for="(option, i) in fieldData.options" :key="i" :value="option.value">
         {{option.value}} <span v-if="option.price > 0" class="pry-select-option-price">(+<currency-symbol />{{option.price}})</span>
         </option>
       </select>
+    </div>
+    <div class="flex gap-2 flex-wrap">
+      <div v-for="(option, i) in fieldData.options" :key="i"
+        class="border border-solid border-slate-400 hover:border-orange-400 rounded box-border px-2 min-h-[30px] min-w-[30px] text-center cursor-pointer"
+        :class="{'border-orange-500 border-2':value==option.value}"
+        @click="value=option.value;onChange()"
+        >
+        <span class="text-slate-600 my-auto mx-auto">{{option.value}}</span>
+      </div>
     </div>
     <p class="text-sm" v-if="fieldData.description !== ''">{{fieldData.description}}</p>
   </div>
@@ -20,7 +29,7 @@
 
 <script>
 export default {
-  name: 'SelectInput',
+  name: 'LabelInput',
   props: {
     fieldData:{
       type: Object,
