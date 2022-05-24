@@ -8,8 +8,8 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLayerGroup, faFont, faUpload, faCircleDot} from '@fortawesome/free-solid-svg-icons'
-library.add([faLayerGroup, faFont, faUpload, faCircleDot])
+import { faLayerGroup, faFont, faUpload, faCircleDot } from '@fortawesome/free-solid-svg-icons'
+library.add([faLayerGroup, faFont, faUpload, faCircleDot ])
 
 export default {
   name: 'Field',

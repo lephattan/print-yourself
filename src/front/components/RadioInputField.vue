@@ -7,20 +7,20 @@
 
 <script>
 import DefaultRadioInput from '@/front/components/DefaultRadioInputField.vue'
+import SelectInput from '@/front/components/SelectInputField.vue'
 export default {
   name: 'RadioInput',
   components:{
-    DefaultRadioInput
+    DefaultRadioInput,
+    SelectInput,
   },
   computed: {
     radioType(){
       switch (this.fieldData.type) {
-        case 'color':
-          return 'ColorRadioInput'
-          break;
+        case 'select':
+          return 'SelectInput'
         default:
           return 'DefaultRadioInput'
-          break;
       }
     },
   },

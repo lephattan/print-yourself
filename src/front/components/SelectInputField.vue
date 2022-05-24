@@ -1,17 +1,17 @@
 <template>
-  <div class="default-radio">
+  <div class="default-select">
     <label class="" :for="name">{{fieldData.label}}:
       <span class="text-red-600" v-if="fieldData.required">*</span>
       <span class="mx-1 text-slate-600"> {{value}}</span>
-      <span class=" mx-1 text-red-700 font-bold" v-show="price !== 0">+<currency-symbol />{{price}}</span>
+      <span class=" mx-1 text-red-700 font-bold" v-show="price > 0">+<currency-symbol />{{price}}</span>
     </label>
     <div class="flex gap-2 flex-wrap">
-      <label class="block border-solid text-center border rounded border-slate-300 px-1" :for="name+'-'+i.toString()" 
-        v-for="(option, i) in fieldData.options" :key="i">
-        <input class="mx-2.5 mb-0" :id="name+'-'+i.toString()" type="radio" :name="name" :value="option.value" :required="option.required" v-model="value" @change="onChange(option.value, option.price)">
-        <span class="block">{{option.value}}</span>
-        <span class="text-red-700" v-if="option.price !== 0 && option.price > 0">${{option.price}}</span>
-      </label>
+      <select v-model="value" @change="onChange" :name="name" :required="fieldData.required" :id="fieldData.id">
+        <option v-if="fieldData.required !== true" value=""></option>
+        <option v-for="(option, i) in fieldData.options" :key="i" :value="option.value">
+        {{option.value}} <span v-if="option.price > 0" class="pry-select-option-price">(+<currency-symbol />{{option.price}})</span>
+        </option>
+      </select>
     </div>
     <p class="text-sm" v-if="fieldData.description !== ''">{{fieldData.description}}</p>
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'DefaultRadioInput',
+  name: 'SelectInput',
   props: {
     fieldData:{
       type: Object,
@@ -42,13 +42,20 @@ export default {
     }
   },
   mounted() {
-    this.value = this.fieldData.options[0].value || ''
+    if(this.fieldData.required === true){
+      this.value = this.fieldData.options[0].value
+    }
     this.price = this.fieldData.options[0].price || 0
     this.emitData()
   },
   methods: {
-    onChange(value, price){
-      this.price = price
+    onChange(){
+      const option = this.fieldData.options.filter(option => option.value == this.value)
+      if (option.length > 0) {
+        this.price = option[0].price
+      } else {
+        this.price = 0
+      }
       this.emitData()
     },
     emitData(_event='fieldChange'){
