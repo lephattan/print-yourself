@@ -17,7 +17,11 @@
         </div>
         <div class="row col-span-6 grid grid-cols-6 items-center" v-if="radioType === 'image'">
           <label class="col-span-1" :for="'radio-image-'+index.toString()">Image</label>
-          <input @change="updateOptions" type="text" v-model="option.image" :name="'radio-image-'+index.toString()">
+          <input @change="updateOptions" type="text" v-model="option.image" :name="'radio-image-'+index.toString()" class="col-span-5">
+          <div class="col-span-1"></div>
+          <div class="col-span-5 p-2">
+            <img :src="encodeURI(option.image)" class="w-[60px]">
+          </div>
         </div>
       </div>
       <div class="actions flex gap-2 py-1 px-2">
