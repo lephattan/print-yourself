@@ -18,13 +18,11 @@
           v-model="field.data.type" @change="onChange">
           <label class="block" for="select">Label</label>
         </div>
-        <!--
-           -<div class="text-center">
-           -  <input class="block" type="radio" id="color" value="color"
-           -  v-model="field.data.type" @change="onChange">
-           -  <label class="block" for="color">Color</label>
-           -</div>
-           -->
+           <div class="text-center">
+             <input class="block" type="radio" id="color" value="color"
+             v-model="field.data.type" @change="onChange">
+             <label class="block" for="color">Color</label>
+           </div>
         <!--
            -<div class="text-center">
            -  <input class="block" type="radio" id="image" value="image"

@@ -8,7 +8,12 @@
           <input @change="updateOptions" type="number" v-model="option.price" :name="'radio-price-'+index.toString()">
         <div class="row col-span-6 grid grid-cols-6 items-center" v-if="radioType === 'color'">
           <label class="col-span-1" :for="'radio-color-'+index.toString()">Color</label>
-          <input @change="updateOptions" type="text" v-model="option.colorHex" :name="'radio-color-'+index.toString()">
+          <input @change="updateOptions" type="text" v-model="option.colorHex" :name="'radio-color-'+index.toString()" class=" col-span-2">
+          <div 
+            class="border border-solid border-slate-400 hover:border-orange-400 rounded box-border px-2 h-[30px] w-[30px] col-span-1"
+            :style="{ backgroundColor: option.colorHex, }"
+            >
+          </div>
         </div>
         <div class="row col-span-6 grid grid-cols-6 items-center" v-if="radioType === 'image'">
           <label class="col-span-1" :for="'radio-image-'+index.toString()">Image</label>
@@ -56,7 +61,7 @@ export default {
         this.updateOptions()
     },
     moveOption(from, to){
-      if(to <0 || to > (this.options.length - 1) ){
+      if(to < 0 || to > (this.options.length - 1) ){
         return
       } else {
         [this.options[to], this.options[from]] = [this.options[from], this.options[to]]

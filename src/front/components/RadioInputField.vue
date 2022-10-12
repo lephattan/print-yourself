@@ -9,12 +9,14 @@
 import DefaultRadioInput from '@/front/components/DefaultRadioInputField.vue'
 import SelectInput from '@/front/components/SelectInputField.vue'
 import LabelInput from '@/front/components/LabelInputField.vue'
+import ColorInput from '@/front/components/ColorInputField.vue'
 export default {
   name: 'RadioInput',
   components:{
     DefaultRadioInput,
     SelectInput,
     LabelInput,
+    ColorInput,
   },
   computed: {
     radioType(){
@@ -23,6 +25,8 @@ export default {
           return 'SelectInput'
         case 'label':
           return 'LabelInput'
+        case 'color':
+          return 'ColorInput'
         default:
           return 'DefaultRadioInput'
       }
