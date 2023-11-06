@@ -1,7 +1,7 @@
 {
   "name": "print-yourself",
-  "version": "2.2.0",
-  "description": "Woocommerce personalized products solition",
+  "version": "2.3.0",
+  "description": "Woocommerce personalized products solution",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --mode=development --watch --config webpack-config.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/beautitopia/print-yourself.git"
+    "url": "git+ssh://git@github.com:lephattan/print-yourself.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://bitbucket.org/beautitopia/print-yourself/issues"
+    "url": "https://github.com/lephattan/print-yourself"
   },
-  "homepage": "https://bitbucket.org/beautitopia/print-yourself#readme",
+  "homepage": "https://github.com/lephattan/print-yourself",
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",
